@@ -1,0 +1,23 @@
+!!!
+%html
+  %head
+    %title Job Importer
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    - if user_signed_in?
+      %div{:class => "navbar navbar-inverse navbar-fixed-top"}
+        %div{:class => "navbar-inner"}
+          .container
+            %div{:class => "nav-collapse collapse"}
+              %ul.nav
+                %li
+                  = link_to "Link1", "#"
+                %li
+                  = link_to "Link2", "#"
+                %li
+                  = link_to "Logout", destroy_user_session_path, method: :delete
+    %div{:style => "margin-top: 40px;"}
+      .container
+        = yield
