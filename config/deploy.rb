@@ -1,8 +1,49 @@
 # config valid only for current version of Capistrano
-lock '3.3.5'
 
-set :application, 'my_app_name'
-set :repo_url, 'git@example.com:me/my_repo.git'
+require 'rvm/capistrano'
+require "bundler/capistrano"
+load 'deploy/assets'
+# main details
+set :rvm_type, :user
+set :application, "PicHub"
+set :use_sudo, false
+set :keep_releases, 10 # 5 by default
+set :scm, :git
+# server details
+default_run_options[:pty] = true
+ssh_options[:forward_agent] = true
+task :production do
+set :rvm_ruby_string, "2.0.0"
+set :location, "52.11.115.219"
+role :web, location
+role :app, location
+role :db, location, :primary => true
+set :deploy_to, "/var/www/PicHub"
+set :user, "ubuntu"
+set :rails_env, :production
+# repo details
+set :scm_username, "ubuntu"
+set :repository, "ssh://ubuntu@#{location}/home/ubuntu/Production/PicHub.git/"
+set :branch, "master"
+end
+
+after 'deploy:update_code', 'bundler:install'
+after 'deploy:update', 'deploy:cleanup'
+
+namespace :deploy do
+  task :start, :roles => :app do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
+  desc "Restart Application"
+  task :restart, :roles => :app do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
+end
+
+desc "install the necessary prerequisites"
+task :bundle_install, :roles => :app do
+  run "cd #{release_path} && bundle install"
+end
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
@@ -34,15 +75,15 @@ set :repo_url, 'git@example.com:me/my_repo.git'
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-namespace :deploy do
+#namespace :deploy do
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
+#  after :restart, :clear_cache do
+#    on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
       # within release_path do
       #   execute :rake, 'cache:clear'
       # end
-    end
-  end
+#    end
+#  end
 
-end
+#end
