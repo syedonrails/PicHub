@@ -9,6 +9,7 @@ set :application, "PicHub"
 set :use_sudo, false
 set :keep_releases, 10 # 5 by default
 set :scm, :git
+
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 # server details
 default_run_options[:pty] = true
