@@ -1,7 +1,7 @@
 # config valid only for current version of Capistrano
 
 require 'rvm/capistrano'
-require "bundler/capistrano"
+#require "bundler/capistrano"
 load 'deploy/assets'
 # main details
 set :rvm_type, :user
@@ -29,7 +29,7 @@ set :repository, "ssh://ubuntu@#{location}/home/ubuntu/Production/PicHub.git/"
 set :branch, "master"
 end
 
-after 'deploy:update_code', 'bundler:install'
+#after 'deploy:update_code', 'bundler:install'
 after 'deploy:update', 'deploy:cleanup'
 
 namespace :deploy do
