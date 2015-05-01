@@ -2,7 +2,6 @@
 
 require 'rvm/capistrano'
 require "bundler/capistrano"
-$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 load 'deploy/assets'
 # main details
 set :rvm_type, :user
@@ -11,12 +10,12 @@ set :use_sudo, false
 set :keep_releases, 10 # 5 by default
 set :scm, :git
 
+$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 # server details
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 task :production do
-set :rvm_ruby_string, "2.0.0"
-set :rvm_bin_path, "/usr/local/bin"
+set :rvm_ruby_string, "2.2.1"
 set :location, "52.11.115.219"
 role :web, location
 role :app, location
@@ -30,7 +29,7 @@ set :repository, "ssh://ubuntu@#{location}/home/ubuntu/Production/PicHub.git/"
 set :branch, "master"
 end
 
-#after 'deploy:update_code', 'bundler:install'
+after 'deploy:update_code', 'bundler:install'
 after 'deploy:update', 'deploy:cleanup'
 
 namespace :deploy do
