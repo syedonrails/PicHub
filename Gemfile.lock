@@ -263,7 +263,7 @@ DEPENDENCIES
   jquery-rails
   less-rails
   mechanize
-  mysql2
+  mysql2 (= 0.3.16)
   nokogiri
   paperclip!
   rails (= 4.1.1)

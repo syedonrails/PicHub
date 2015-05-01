@@ -15,7 +15,7 @@ $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 task :production do
-set :rvm_ruby_string, "2.2.1"
+set :rvm_ruby_string, "2.0.0"
 set :location, "52.11.115.219"
 role :web, location
 role :app, location
