@@ -48,7 +48,33 @@ namespace :bundler do
     run "cd #{release_path} && bundle install"
   end
 end
-
+namespace :db do
+  desc "Create #{rails_env} Database"
+  task :create do
+    puts "\n\n=== Creating the #{rails_env} Database! ===\n\n"
+    run "cd #{current_path}; rake db:create RAILS_ENV=#{rails_env}"
+  end
+  desc "Migrate #{rails_env} Database"
+  task :migrate do
+    puts "\n\n=== Migrating the #{rails_env} Database! ===\n\n"
+    run "cd #{current_path}; rake db:migrate RAILS_ENV=#{rails_env}"
+  end
+  desc "Resets the #{rails_env} Database"
+  task :migrate_reset do
+    puts "\n\n=== Resetting the #{rails_env} Database! ===\n\n"
+    run "cd #{current_path}; rake db:migrate:reset RAILS_ENV=#{rails_env}"
+  end
+  desc "Destroys #{rails_env} Database"
+  task :drop do
+    puts "\n\n=== Destroying the #{rails_env} Database! ===\n\n"
+    run "cd #{current_path}; rake db:drop RAILS_ENV=#{rails_env}"
+  end
+  desc "Populates the #{rails_env} Database"
+  task :seed do
+    puts "\n\n=== Populating the #{rails_env} Database! ===\n\n"
+    run "cd #{current_path}; rake db:seed RAILS_ENV=#{rails_env}"
+  end
+end
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
