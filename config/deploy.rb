@@ -16,7 +16,7 @@ default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 task :production do
 set :rvm_ruby_string, "2.0.0"
-set :location, "52.10.22.121"
+set :location, "52.24.247.179"
 role :web, location
 role :app, location
 role :db, location, :primary => true
