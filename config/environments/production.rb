@@ -82,4 +82,13 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   config.secret_key_base = ENV["SECRET_KEY_BASE"]
   config.action_mailer.default_url_options = { host: '52.24.247.179', port: 80 }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'pichub.com',
+    :user_name            => 'syedonrails@gmail.com',
+    :password             => 'Iam2smarter',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true  }
 end
