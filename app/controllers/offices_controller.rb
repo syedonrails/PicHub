@@ -80,4 +80,7 @@ class OfficesController < ApplicationController
     def office_params
       params.require(:office).permit(:name, :age, :email)
     end
+    
+    def test_method
+    end
 end
